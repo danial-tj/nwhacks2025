@@ -19,9 +19,11 @@ The eight required models are included and credited to the original Cosmic Zoom 
 
 ## Explore
 
-The journey starts at Atom and proceeds through Molecule → DNA Helix → Beaver → Earth → Solar System → Milky Way → Observable Universe. Choose any scene using its button, or use Smaller/Larger. Focus the 3D view and use left/right arrow keys or scroll to step between scales. Drag with mouse or touch to orbit. Page and assistant scrolling remain independent. Reset view restores camera framing and clears the selected feature.
+The journey starts at Atom and proceeds through Molecule → DNA Helix → Beaver → Earth → Solar System → Milky Way → Observable Universe. Choose any scene using its button, or use Smaller/Larger. Scrolling never changes scenes. Click or focus the 3D view to use the wheel for bounded zoom; Escape releases the view so the page scrolls normally. Drag or use arrow keys to orbit, pinch on touchscreens, and use the +/− buttons or keys to zoom. Reset view restores camera framing and clears the selected feature.
 
-DNA and Earth each have three numbered feature markers with equivalent HTML buttons. Feature markers are teaching regions, not precise atomic/geographic measurements. Original animation clips can be played or paused where available; animation is off initially and disabled for reduced-motion preferences.
+The universe now uses an open procedural cosmic web with luminous galaxy clusters, filaments, and voids. It is explicitly an illustration, not a survey or a physical outer shell. The original star-textured sphere GLB is preserved but not rendered. The Solar System reuses the team's individual planet meshes in a Sun-centered atlas with orbit guides, selection, and optional continuous illustrative motion. Planet sizes, spacing, phases, and speeds are not physical measurements or current ephemerides.
+
+DNA and Earth each have three numbered feature markers with equivalent HTML buttons. Solar System adds eight planet buttons and a label that follows the selected planet. Feature markers are teaching regions, not precise atomic/geographic measurements. Original clips in Atom, Beaver, and Earth and illustrative orbits in Solar System can be played or paused; animation is off initially and disabled for reduced-motion preferences.
 
 The ruler uses logarithmic physical lengths. The scene buttons use equal spacing for legibility. Model framing is independent of physical size: the ruler does not imply a continuous literal zoom. Each measurement identifies what is being measured, with caveats and sources. The small-molecule width is explicitly a teaching estimate. Scene links such as `/#earth` support reload and browser history. Old `/earth` and `/1`–`/8` routes redirect into the journey; unknown routes return 404.
 

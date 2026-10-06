@@ -239,8 +239,12 @@ export const scenes: SceneDefinition[] = [
     description:
       "The Sun anchors a family of eight planets and many smaller bodies. An astronomical unit (AU) is approximately the distance from Earth to the Sun.",
     caveat:
-      "Planet sizes and orbital spacing are exaggerated independently. This model is not a literal scale map, and Neptune is not the Solar System’s outer boundary.",
+      "Planet sizes and orbital spacing are exaggerated independently. Positions and animation speeds are illustrative, not a prediction of where planets are today. Neptune is not the Solar System’s outer boundary.",
     sources: [
+      {
+        label: "NASA · Meet the planets",
+        url: "https://science.nasa.gov/solar-system/planets/",
+      },
       {
         label: "NASA · Neptune facts",
         url: "https://science.nasa.gov/neptune/neptune-facts/",
@@ -250,7 +254,16 @@ export const scenes: SceneDefinition[] = [
       "Does the Solar System end at Neptune?",
       "What does one AU mean?",
     ],
-    annotations: [],
+    annotations: [
+      { id: "mercury", title: "Mercury", text: "The closest planet to the Sun, and the smallest of the eight planets. Follow its inner orbit in this illustration.", position: [0, 0, 0] },
+      { id: "venus", title: "Venus", text: "The second planet from the Sun. Venus is a rocky world wrapped in a thick atmosphere.", position: [0, 0, 0] },
+      { id: "earth", title: "Earth", text: "Our home is the third planet from the Sun. The Earth scene lets you take a closer look at its oceans, land, and atmosphere.", position: [0, 0, 0] },
+      { id: "mars", title: "Mars", text: "The fourth planet from the Sun is a rocky world known as the Red Planet.", position: [0, 0, 0] },
+      { id: "jupiter", title: "Jupiter", text: "Jupiter is the largest planet in the Solar System. It is a gas giant beyond the four inner rocky planets.", position: [0, 0, 0] },
+      { id: "saturn", title: "Saturn", text: "Saturn is a gas giant with a striking ring system. Its broad rings make it especially easy to recognize in this view.", position: [0, 0, 0] },
+      { id: "uranus", title: "Uranus", text: "Uranus is an ice giant, the seventh planet from the Sun. Its rotation axis is tilted dramatically to the side.", position: [0, 0, 0] },
+      { id: "neptune", title: "Neptune", text: "Neptune is the most distant of the eight planets, about 30 AU from the Sun. The Solar System continues well beyond its orbit.", position: [0, 0, 0] },
+    ],
     camera: [0, 5.3, 3.8],
   },
   {
@@ -295,10 +308,14 @@ export const scenes: SceneDefinition[] = [
       note: "A rounded cosmological estimate. This is not a measurement of the entire universe.",
     },
     description:
-      "The observable universe is the region whose light can reach us. Because space has expanded while light traveled, its present-day size is much larger than its age multiplied by light speed.",
+      "Galaxies gather into clusters and long filaments, with vast, sparsely populated voids between them. This cosmic web fills space; the observable universe is the region whose light can reach us.",
     caveat:
-      "A conceptual boundary centered on the observer, not a physical shell or an edge of all space. The entire universe may be much larger.",
+      "This is a generated illustration of cosmic structure, not a galaxy survey or a map of the entire observable universe. Brightness and colors reveal structure rather than visible appearance. There is no solid outer shell; the entire universe may be much larger than the region we can observe.",
     sources: [
+      {
+        label: "NASA · The cosmic web",
+        url: "https://science.nasa.gov/universe/galaxies/large-scale-structures/",
+      },
       {
         label: "NASA · How big is space?",
         url: "https://www.nasa.gov/science-research/astrophysics/how-big-is-space-we-asked-a-nasa-expert-episode-61/",

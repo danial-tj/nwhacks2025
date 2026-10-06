@@ -27,7 +27,7 @@ async function changedPixels(page: Page, before: Buffer, after: Buffer) {
   }, [before.toString("base64"), after.toString("base64")]);
 }
 
-test("all eight original models load, and navigation stays at its boundaries", async ({
+test("all eight scenes load, and navigation stays at its boundaries", async ({
   page,
 }, info) => {
   const errors: string[] = [];
@@ -68,7 +68,7 @@ test("all eight original models load, and navigation stays at its boundaries", a
     ).toBeVisible();
     await expect(page.locator(".viewer")).toHaveAttribute("data-ready", "true");
     await expect(page).toHaveURL(new RegExp(`#${scene.id}$`));
-    if (scene.annotations.length) {
+    if (["earth", "dna"].includes(scene.id)) {
       const view = (await page.locator(".viewer").boundingBox())!;
       for (const marker of await page.locator(".hotspot").all()) {
         await expect(async () => {
@@ -101,7 +101,10 @@ test("Solar System animation moves and pauses without resetting", async ({ page 
   await canvas.scrollIntoViewIfNeeded();
   const initial = await canvas.screenshot();
   await page.getByRole("button", { name: "Play animation" }).click();
-  await expect.poll(async () => changedPixels(page, initial, await canvas.screenshot())).toBeGreaterThan(25);
+  await expect.poll(async () => changedPixels(page, initial, await canvas.screenshot()), {
+    timeout: 15000,
+    message: "The animated planets must visibly move (software WebGL can render slowly).",
+  }).toBeGreaterThan(25);
   await page.getByRole("button", { name: "Pause animation" }).click();
   await canvas.scrollIntoViewIfNeeded();
   const paused = await canvas.screenshot({ path: info.outputPath("paused.png") });
@@ -117,12 +120,14 @@ test("keyboard, wheel, source details and reduced motion work together", async (
   await page.goto("/#earth");
   await expect(page.locator(".viewer")).toHaveAttribute("data-ready", "true");
   await page.getByRole("region", { name: "Earth 3D view" }).press("ArrowLeft");
-  await expect(
-    page.getByRole("heading", { name: "Beaver", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("region", { name: "Beaver 3D view" })
-    .press("ArrowRight");
+  await expect(page).toHaveURL(/#earth$/);
+  await page.getByRole("button", { name: "Zoom in", exact: true }).click();
+  await expect.poll(async () => parseInt((await page.getByLabel("View magnification").textContent())!)).toBeGreaterThan(100);
+  await page.getByRole("button", { name: "Reset view" }).click();
+  await page.getByRole("button", { name: "Zoom out", exact: true }).click();
+  await expect.poll(async () => parseInt((await page.getByLabel("View magnification").textContent())!)).toBeLessThan(100);
+  await page.getByRole("button", { name: "Reset view" }).click();
+  await expect(page.getByLabel("View magnification")).toHaveText("100%");
   await expect(
     page.getByRole("heading", { name: "Earth", exact: true }),
   ).toBeVisible();
@@ -130,9 +135,14 @@ test("keyboard, wheel, source details and reduced motion work together", async (
     await page.getByRole("region", { name: "Earth 3D view" }).focus();
     await page.locator(".viewer").hover();
     await page.mouse.wheel(0, 120);
-    await expect(
-      page.getByRole("heading", { name: "Solar System", exact: true }),
-    ).toBeVisible();
+    await expect(page.getByLabel("View magnification")).not.toHaveText("100%");
+    await expect(page).toHaveURL(/#earth$/);
+    await page.getByRole("region", { name: "Earth 3D view" }).press("Escape");
+    const zoom = await page.getByLabel("View magnification").textContent();
+    await page.mouse.wheel(0, 500);
+    await page.waitForTimeout(300);
+    await expect(page.getByLabel("View magnification")).toHaveText(zoom!);
+    await expect(page).toHaveURL(/#earth$/);
   }
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(
@@ -140,6 +150,39 @@ test("keyboard, wheel, source details and reduced motion work together", async (
   ).toBeDisabled();
   await page.getByText("About this scale & model", { exact: true }).click();
   await expect(page.locator(".scienceDetails a").first()).toBeVisible();
+});
+
+test("reset stops in-flight orbit movement at the original view", async ({ page }) => {
+  await page.goto("/#earth");
+  await expect(page.locator(".viewer")).toHaveAttribute("data-ready", "true");
+  const view = page.getByRole("region", { name: "Earth 3D view" });
+  const canvas = page.locator("canvas");
+  await view.focus();
+  const initial = await canvas.screenshot();
+  await view.press("ArrowRight");
+  await page.getByRole("button", { name: "Reset view" }).click();
+  await expect(page.locator(".viewer")).toHaveAttribute("data-ready", "true");
+  await view.focus();
+  // A delayed capture catches momentum that survives the reset action.
+  await page.waitForTimeout(700);
+  expect(await changedPixels(page, initial, await canvas.screenshot())).toBe(0);
+});
+
+test("cosmic web needs no sphere asset; solar atlas selects the team's planets", async ({ page }, info) => {
+  const requested: string[] = [];
+  page.on("request", request => { if (request.url().includes("/models/")) requested.push(request.url()); });
+  await page.goto("/#universe");
+  await expect(page.locator(".viewer")).toHaveAttribute("data-ready", "true");
+  await expect(page.locator(".cosmicLegend")).toContainText("Galaxy clusters");
+  expect(requested.some(url => url.includes("observableuniverse.glb"))).toBe(false);
+  await page.screenshot({ path: `test-results/${info.project.name}-universe.png`, fullPage: true });
+  await page.getByRole("navigation", { name: "Choose a scale" }).getByRole("button", { name: /Solar System/ }).click();
+  await expect(page.locator(".viewer")).toHaveAttribute("data-ready", "true");
+  await page.locator(".featureButtons").getByRole("button", { name: "Saturn" }).click();
+  await expect(page.locator(".annotationText")).toContainText("rings");
+  await expect(page.locator(".planetLabel")).toContainText("Saturn");
+  expect(requested.some(url => url.includes("solarsystem.glb"))).toBe(true);
+  await page.screenshot({ path: `test-results/${info.project.name}-solar-atlas.png`, fullPage: true });
 });
 
 test("feature hotspots and HTML controls share selection; AI fails gracefully", async ({

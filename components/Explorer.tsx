@@ -63,7 +63,7 @@ export default function Explorer() {
   return (
     <>
       <Head>
-        <title>{scene.label} · Cosmic Zoom</title>
+        <title>{`${scene.label} · Cosmic Zoom`}</title>
         <meta
           name="description"
           content="Explore eight scales of our universe with original 3D models, a scientific scale ruler, and guided explanations."
@@ -122,9 +122,9 @@ export default function Explorer() {
               <p className="description">{scene.description}</p>
               {scene.annotations.length > 0 && (
                 <div className="features">
-                  <h2>Look a little closer</h2>
-                  <p>Choose a numbered feature.</p>
-                  <div className="featureButtons">
+                  <h2>{scene.id === "solar-system" ? "Meet the planets" : "Look a little closer"}</h2>
+                  <p>{scene.id === "solar-system" ? "Choose a world to pick it out in the system." : "Choose a numbered feature."}</p>
+                  <div className={`featureButtons ${scene.id === "solar-system" ? "planetButtons" : ""}`}>
                     {scene.annotations.map((item, i) => (
                       <button
                         key={item.id}
@@ -172,14 +172,13 @@ export default function Explorer() {
                   definition={scene}
                   selected={selected}
                   onSelect={select}
-                  onStep={step}
                   resetVersion={resetVersion}
                   reducedMotion={reducedMotion}
                   playing={playing}
                 />
               </ViewBoundary>
               <div className="viewToolbar">
-                <p>Models are enlarged or reduced to fit the view.</p>
+                <p>{scene.id === "universe" ? "An open volume of galaxies and the space between them." : scene.id === "solar-system" ? "Planet sizes, spacing, and motion are illustrative." : "Models are enlarged or reduced to fit the view."}</p>
                 <div>
                   {["atom", "beaver", "earth", "solar-system"].includes(
                     scene.id,
@@ -213,7 +212,7 @@ export default function Explorer() {
             <div className="scaleHeading">
               <div>
                 <h2>A universe of perspective</h2>
-                <p>From the atomic to the astronomical.</p>
+                <p>Choose your next scale. Scrolling stays in this scene.</p>
               </div>
               <div className="stepButtons">
                 <button

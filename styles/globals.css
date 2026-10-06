@@ -237,6 +237,75 @@ h1 {
   font-size: 10px;
   letter-spacing: 1.5px;
   pointer-events: none;
+  max-width: calc(100% - 190px);
+}
+.viewer[data-scene="universe"]:before {
+  background: radial-gradient(ellipse at 50% 45%, #121d2b, #050911 75%);
+}
+.viewZoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  background: #080e18e6;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.viewZoom button {
+  width: 44px;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
+}
+.viewZoom output {
+  width: 42px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.cosmicLegend {
+  position: absolute;
+  left: 24px;
+  bottom: 55px;
+  right: 24px;
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 18px;
+  font-size: 10px;
+  color: #c7d5df;
+}
+.cosmicLegend span:before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-right: 7px;
+  background: #ead4ab;
+}
+.cosmicLegend span:nth-child(2):before { background: #7db9c8; }
+.cosmicLegend span:nth-child(3):before { background: none; border: 1px solid #8794a7; }
+.cosmicLegend small { flex-basis: 100%; font-size: 10px; color: var(--muted); }
+.planetButtons { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.planetButtons button { min-width: 0; }
+.planetLabel {
+  border: 1px solid #b8dfd770;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #080e18e6;
+  color: #edf5f3;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.sunLabel { color: #eed3a3; font-size: 10px; pointer-events: none; }
+.touchHint { display: none; }
+@media (pointer: coarse) {
+  .pointerHint { display: none; }
+  .touchHint { display: inline; }
 }
 .viewHint {
   position: absolute;

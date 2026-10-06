@@ -30,10 +30,20 @@ To reproduce the comparison, recover the baseline source at `593b42a` into a sep
 
 ## Visual evidence and scope
 
+### Revision after visual feedback
+
+The Universe presentation is now a deterministic, open cosmic web with 7,334 glow particles, curved filaments, and voids. The original opaque sphere asset is preserved but is not requested by the view. Its legend and science notes explicitly distinguish the illustration from an observed survey or physical edge. The Solar System uses the original Sun/planet meshes as a selectable atlas with continuous illustrative motion and orbit guides.
+
+Wheel input and arrow keys no longer navigate between scenes. Focused wheel input zooms within the current view; Escape releases focus, and normal page scrolling remains available. Arrow keys orbit, and visible +/− controls provide zoom alternatives. Zoom direction, bounds, and reset during in-flight orbit movement are verified. Build, typecheck, lint, seven unit/API tests, and twenty production-browser tests passed across the full run and a focused animation rerun after these changes, including desktop/mobile checks of the new scenes and retained error handling. Browser screenshots below document the new presentation; the loading measurements above apply to the preceding release, not a new performance benchmark.
+
+- [Cosmic web, desktop](screenshots/desktop-universe.png)
+- [Planet atlas, desktop](screenshots/desktop-solar-atlas.png)
+- [Cosmic web, mobile emulation](screenshots/mobile-universe.png)
+
 - [Earth, desktop](screenshots/desktop-earth.png)
 - [DNA, desktop](screenshots/desktop-dna.png)
 - [Atom, mobile emulation](screenshots/mobile-atom.png)
 
-All scenes were visually reviewed in the generated captures. DNA markers follow illustrative backbone/base-pair regions. Earth markers introduce systems rather than exact locations. Button alternatives preserve access without 3D pointing. The original model identities and background are retained.
+All scenes were visually reviewed in the generated captures. DNA markers follow illustrative backbone/base-pair regions. Earth markers introduce systems rather than exact locations. Button alternatives preserve access without 3D pointing. The team's original meshes are retained in the planet atlas; the Universe presentation is newly generated.
 
 Mobile checks use Chrome with an iPhone-sized viewport and touch capability emulated; no physical phone or screen reader was used. The tests are functional checks, not a formal accessibility certification. A configurable AI key and live answer evaluation remain follow-ups, as do public hosting selection and durable shared limits before anonymous public AI use.
