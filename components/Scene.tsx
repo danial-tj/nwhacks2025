@@ -1,89 +1,217 @@
-"use client";
-
 import { Canvas, useThree } from "@react-three/fiber";
+import { Html, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
+import {
+  Component,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import Model from "./Model";
-import { Suspense, useState, useEffect } from "react";
-import * as THREE from "three";
-import { useProgress, Html, ScrollControls, Environment, OrbitControls } from "@react-three/drei";
-import CardPanel from "./CardPanel";
+import type { SceneDefinition } from "../lib/scenes";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
+class AssetBoundary extends Component<
+  { children: ReactNode; retry: () => void },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    if (this.state.failed)
+      return (
+        <Html center>
+          <div className="loadMessage" role="alert">
+            <strong>Model couldn’t load</strong>
+            <p>The science notes and scale navigation still work.</p>
+            <button onClick={this.props.retry}>Retry model</button>
+          </div>
+        </Html>
+      );
+    return this.props.children;
+  }
+}
 function Loader() {
   const { progress } = useProgress();
-  return <Html center>{progress.toFixed(1)} % loaded</Html>;
-}
-
-function CameraSetup({ zoom }) {
-  const { camera } = useThree();
-  // Apply zoom each frame
-  if (camera) {
-    camera.zoom = zoom;
-    camera.updateProjectionMatrix();
-  }
-  return null;
-}
-
-function FogSetup({ zoom }) {
-  const { scene } = useThree();
-  scene.fog = new THREE.Fog("white", zoom / 2 + 3, 3);
-  return null;
-}
-
-export default function Scene() {
-  const models = [
-    { name: 'atom.glb', title: 'Atom', content: 'An atom is the basic unit of matter, made up of protons, neutrons, and electrons. The nucleus, at the center, contains protons and neutrons, while electrons orbit around the nucleus in energy levels. Atoms combine to form molecules and make up all substances in the universe.', initialZoom: 1 },
-    { name: 'moleculeModel.glb', title: 'Molecule', content: 'Cytosine is one of the four nitrogenous bases found in DNA and RNA, which are essential for genetic coding. It pairs with guanine (G) in DNA through hydrogen bonds. Cytosine is a pyrimidine base, and its structure consists of a six-membered ring containing nitrogen and carbon atoms.', initialZoom: 1 },
-    { name: 'DNAHelix.glb', title: 'DNA Helix', content: 'A DNA helix refers to the structure of deoxyribonucleic acid (DNA), which carries genetic information in living organisms. DNA is shaped like a double helix, consisting of two strands twisted around each other. Each strand is made up of nucleotide units that encode genetic instructions for biological functions and development.', initialZoom: 1 },
-    { name: 'beaver.glb', title: 'Beaver', content: 'This is a beaver model.', initialZoom: 1.5 },
-    { name: 'earthModel.glb', title: 'Earth', content: 'Earth is the third planet from the Sun and the only known planet to support life. It has a diverse environment, with land, water, and air that sustain a variety of ecosystems. Earth’s atmosphere contains oxygen and nitrogen, and its surface includes oceans, mountains, and forests.', initialZoom: 1.5 },
-    { name: 'solarsystem.glb', title: 'Solar System', content: 'The solar system is a collection of celestial bodies, including the Sun, eight planets (such as Earth and Mars), moons, dwarf planets (like Pluto), asteroids, comets, and other objects. The Sun is at the center, providing gravitational pull and energy that keeps the planets in orbit. The solar system is located in the Milky Way galaxy.', initialZoom: 1.5 },
-    { name: 'Milkywaygalaxy.glb', title: 'Milky Way', content: 'The Milky Way is the galaxy that contains our solar system, and it is a spiral galaxy made up of billions of stars, dust, and gas. It is shaped like a flat disk with spiral arms. The galaxy spans over 100,000 light-years in diameter and is just one of billions of galaxies in the universe.', initialZoom: 1.5 },
-    { name: 'observableuniverse.glb', title: 'Observable Universe', content: 'The observable universe refers to the portion of the entire universe that we can observe from Earth, based on the distance light has traveled since the Big Bang. It spans about 93 billion light-years in diameter. The observable universe includes all the galaxies, stars, planets, and other cosmic objects that emit light or other forms of radiation that we can detect with current technology, like telescopes.', initialZoom: 1.5 },
-  ];
-  const [zoom, setZoom] = useState(models[0].initialZoom); // Initial zoom
-  const [modelNum, setModelNum] = useState(0);
-  const [currentModel, setCurrentModel] = useState(models[0]);
-
-  const handleScroll = (e) => {
-    const maxZoom = 10;
-    const minZoom = 1;
-    let zoomStep = 0.5; // Increase zoom step to make zooming faster
-    setZoom((previousZoom) => {
-      // Determine scrolling up or down
-      let newZoom = e.deltaY < 0 ? previousZoom - zoomStep : previousZoom + zoomStep;
-      console.log(newZoom);
-      // Change scene to smaller object if we reach max zoom
-      if (newZoom >= maxZoom && modelNum != models.length - 1) {
-        setModelNum(modelNum => modelNum + 1);
-        setCurrentModel(models[modelNum + 1]);
-        console.log(modelNum);
-        newZoom = models[modelNum + 1].initialZoom; // Reset zoom to initial value for the next model
-      // Change scene to larger object if we reach min zoom
-      } else if (newZoom <= minZoom && modelNum != 0) {
-        setModelNum(modelNum => modelNum - 1);
-        setCurrentModel(models[modelNum - 1]);
-        newZoom = models[modelNum - 1].initialZoom; // Reset zoom to initial value for the previous model
-      }
-      // Constrain range
-      return Math.max(1, Math.min(newZoom, maxZoom));
-    });
-  };
-
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100vw', position: 'absolute', top: 0, left: 0 }}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 60 }} gl={{ antialias: true }} dpr={[1, 1.5]} style={{ width: '80vw', height: '80vh' }} onWheel={handleScroll}>
-        <CameraSetup zoom={zoom} />
-        <FogSetup zoom={zoom} />
-        <pointLight position={[5, 5, 5]} intensity={1} />
-        <ambientLight intensity={0.2} />
-        <OrbitControls enableZoom={false} enablePan={false} enableRotate={true} />
-        <Suspense fallback={<Loader />}>
-          <Environment files="/models/moonlit_night.exr" background={false} blur={0} />
-          <ScrollControls pages={3} damping={0.5} showScroll={false}>
-            <Model modelName={currentModel.name} />
-          </ScrollControls>
-        </Suspense>
+    <Html center>
+      <div className="loadMessage" role="status">
+        Loading model… {Math.round(progress)}%
+      </div>
+    </Html>
+  );
+}
+function CameraReset({
+  definition,
+  version,
+}: {
+  definition: SceneDefinition;
+  version: number;
+}) {
+  const { camera, controls, invalidate } = useThree();
+  useEffect(() => {
+    const orbit = controls as OrbitControlsImpl | undefined;
+    orbit?.reset();
+    camera.position.set(...definition.camera);
+    camera.lookAt(0, 0, 0);
+    orbit?.update();
+    camera.updateMatrixWorld(true);
+    invalidate();
+  }, [camera, controls, definition, version, invalidate]);
+  return null;
+}
+export default function Scene({
+  definition,
+  selected,
+  onSelect,
+  onStep,
+  reducedMotion,
+  resetVersion,
+  playing,
+}: {
+  definition: SceneDefinition;
+  selected?: string;
+  onSelect: (id: string) => void;
+  onStep: (delta: number) => void;
+  reducedMotion: boolean;
+  resetVersion: number;
+  playing: boolean;
+}) {
+  const container = useRef<HTMLDivElement>(null);
+  const activeCanvas = useRef<HTMLCanvasElement>();
+  const [attempt, setAttempt] = useState(0);
+  const [readyToken, setReadyToken] = useState("");
+  const [contextLost, setContextLost] = useState(false);
+  const token = `${definition.id}:${attempt}:${resetVersion}`;
+  const onReady = useCallback(() => {
+    setReadyToken(token);
+    performance.mark(`cosmic-ready:${definition.id}`);
+  }, [definition.id, token]);
+  useEffect(() => {
+    setContextLost(false);
+  }, [definition.id, attempt]);
+  useEffect(() => {
+    const element = container.current;
+    if (!element) return;
+    let total = 0,
+      last = 0;
+    const wheel = (event: WheelEvent) => {
+      if (
+        document.activeElement !== element ||
+        event.ctrlKey ||
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)
+      )
+        return;
+      event.preventDefault();
+      const now = performance.now();
+      if (now - last < 700) return;
+      const amount =
+        event.deltaY *
+        (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? 300 : 1);
+      if (Math.sign(amount) !== Math.sign(total)) total = 0;
+      total += amount;
+      if (Math.abs(total) >= 90) {
+        onStep(Math.sign(total));
+        total = 0;
+        last = now;
+      }
+    };
+    element.addEventListener("wheel", wheel, { passive: false });
+    return () => element.removeEventListener("wheel", wheel);
+  }, [onStep]);
+  const retry = () => {
+    useGLTF.clear(`/models/${definition.asset}`);
+    setAttempt((value) => value + 1);
+  };
+  return (
+    <div
+      className="viewer"
+      ref={container}
+      tabIndex={0}
+      role="region"
+      aria-label={`${definition.label} 3D view`}
+      data-ready={readyToken === token && !contextLost}
+      onPointerDown={(event) => {
+        if (!(event.target as HTMLElement).closest("button"))
+          container.current?.focus({ preventScroll: true });
+      }}
+      onKeyDown={(event) => {
+        if (
+          event.target === event.currentTarget &&
+          (event.key === "ArrowRight" || event.key === "ArrowLeft")
+        ) {
+          event.preventDefault();
+          onStep(event.key === "ArrowRight" ? 1 : -1);
+        }
+      }}
+    >
+      <span className="viewLabel">INTERACTIVE MODEL / {definition.label}</span>
+      <Canvas
+        key={attempt}
+        camera={{ position: [0, 0, 6.4], fov: 42 }}
+        dpr={[1, 1.5]}
+        frameloop={playing && !reducedMotion ? "always" : "demand"}
+        gl={{ antialias: true }}
+        onCreated={({ gl }) => {
+          activeCanvas.current = gl.domElement;
+          gl.domElement.addEventListener(
+            "webglcontextlost",
+            () => {
+              if (
+                activeCanvas.current === gl.domElement &&
+                gl.domElement.isConnected
+              )
+                setContextLost(true);
+            },
+            { once: true },
+          );
+        }}
+        fallback={
+          <div className="loadMessage">
+            3D is unavailable in this browser. Explore using the scale and
+            science notes.
+          </div>
+        }
+      >
+        <ambientLight intensity={1.7} />
+        <directionalLight position={[3, 5, 5]} intensity={3} />
+        <directionalLight
+          position={[-4, 1, -2]}
+          intensity={1.8}
+          color="#8ab7ff"
+        />
+        <OrbitControls
+          makeDefault
+          enablePan={false}
+          enableZoom={false}
+          enableDamping={!reducedMotion}
+        />
+        <CameraReset definition={definition} version={resetVersion} />
+        <AssetBoundary key={`${definition.id}:${attempt}`} retry={retry}>
+          <Suspense fallback={<Loader />}>
+            <Model
+              key={definition.id}
+              definition={definition}
+              selected={selected}
+              onSelect={onSelect}
+              onReady={onReady}
+              animate={playing && !reducedMotion}
+            />
+          </Suspense>
+        </AssetBoundary>
       </Canvas>
-      <CardPanel title={currentModel.title} content={currentModel.content} />
+      {contextLost && (
+        <div className="contextMessage" role="alert">
+          3D rendering paused. <button onClick={retry}>Reload view</button>
+        </div>
+      )}
+      <p className="viewHint">
+        Drag to orbit <span>·</span> Focus the view, then scroll or use ← →
+      </p>
     </div>
   );
 }

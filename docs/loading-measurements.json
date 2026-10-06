@@ -1,0 +1,131 @@
+{
+  "conditions": "Windows, Node 22.13.0, local HTTP, Chrome software WebGL, 1440x1000, no network/CPU throttling, fresh browser context each run. Baseline source on patched runtime (dev); improved production build. First baseline run may include compilation. Readiness marks are scheduled two animation frames after model mount.",
+  "measurements": [
+    {
+      "label": "baseline",
+      "run": 1,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "sceneReadyMs": 18977.20000001788,
+      "assets": [
+        {
+          "name": "moonlit_night.exr",
+          "bytes": 96639456,
+          "decodedBytes": 96639156,
+          "durationMs": 2266.0999999940395
+        },
+        {
+          "name": "atom.glb",
+          "bytes": 918201,
+          "decodedBytes": 1592528,
+          "durationMs": 81.90000000596046
+        }
+      ],
+      "orbitAnimationFrameIntervals": {
+        "medianMs": 264,
+        "p95Ms": 300
+      }
+    },
+    {
+      "label": "baseline",
+      "run": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "sceneReadyMs": 6530.199999988079,
+      "assets": [
+        {
+          "name": "moonlit_night.exr",
+          "bytes": 96639456,
+          "decodedBytes": 96639156,
+          "durationMs": 1377.300000011921
+        },
+        {
+          "name": "atom.glb",
+          "bytes": 918201,
+          "decodedBytes": 1592528,
+          "durationMs": 131.09999999403954
+        }
+      ],
+      "orbitAnimationFrameIntervals": {
+        "medianMs": 272.3000000000029,
+        "p95Ms": 402.7999999999993
+      }
+    },
+    {
+      "label": "baseline",
+      "run": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "sceneReadyMs": 16947.70000001788,
+      "assets": [
+        {
+          "name": "moonlit_night.exr",
+          "bytes": 96639456,
+          "decodedBytes": 96639156,
+          "durationMs": 9313.399999976158
+        },
+        {
+          "name": "atom.glb",
+          "bytes": 918201,
+          "decodedBytes": 1592528,
+          "durationMs": 3092.5
+        }
+      ],
+      "orbitAnimationFrameIntervals": {
+        "medianMs": 322.1000000000058,
+        "p95Ms": 397.3999999999978
+      }
+    },
+    {
+      "label": "improved",
+      "run": 1,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "sceneReadyMs": 1028.2000000178814,
+      "assets": [
+        {
+          "name": "atom.glb",
+          "bytes": 918201,
+          "decodedBytes": 1592528,
+          "durationMs": 103.5
+        }
+      ],
+      "orbitAnimationFrameIntervals": {
+        "medianMs": 55.59999999999991,
+        "p95Ms": 66.69999999999982
+      }
+    },
+    {
+      "label": "improved",
+      "run": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "sceneReadyMs": 1405.699999988079,
+      "assets": [
+        {
+          "name": "atom.glb",
+          "bytes": 918201,
+          "decodedBytes": 1592528,
+          "durationMs": 115.7999999821186
+        }
+      ],
+      "orbitAnimationFrameIntervals": {
+        "medianMs": 61.099999999999454,
+        "p95Ms": 66.80000000000018
+      }
+    },
+    {
+      "label": "improved",
+      "run": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "sceneReadyMs": 804.5,
+      "assets": [
+        {
+          "name": "atom.glb",
+          "bytes": 918201,
+          "decodedBytes": 1592528,
+          "durationMs": 111.2000000178814
+        }
+      ],
+      "orbitAnimationFrameIntervals": {
+        "medianMs": 55.600000000000364,
+        "p95Ms": 63.80000000000018
+      }
+    }
+  ]
+}

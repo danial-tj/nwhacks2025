@@ -1,204 +1,69 @@
-# 🌌 CosmicZoom - nwHacks 2025
+# Cosmic Zoom · nwHacks 2025
 
-An immersive educational platform that combines interactive 3D visualization with AI-powered Q&A to help students explore scientific concepts by zooming from the vast observable universe down to the atomic level.
+An interactive journey from atoms to the observable universe, built originally by the nwHacks 2025 team. This local improvement release preserves the team's eight recovered 3D models and adds explicit scale navigation, reviewed science notes, accessible feature exploration, and a scene-aware AI endpoint.
 
-## 🏆 Hackathon Project
+## Run locally
 
-This project was developed for **nwHacks 2025** with the goal of creating an engaging, interactive learning experience where students can:
-- Explore 3D scientific models through intuitive scroll-based navigation
-- Journey from the cosmic scale down to atomic structures through seamless zooming
-- Ask questions and get AI-powered explanations about the content they're viewing
+Use Node.js 22 LTS (tested with 22.13.0) and npm. No AI key is needed to explore.
 
-## ✨ Features
-
-### 🎯 Interactive 3D Visualization
-- **Scale-based Navigation**: Scroll to zoom from cosmic structures down to atomic level
-- **Smooth Transitions**: Seamless movement from universe to atoms through progressive zooming
-- **Real-time Rendering**: Powered by Three.js and React Three Fiber
-- **Mouse Interaction**: Orbit controls for 360° exploration of 3D models
-
-### 🧠 AI-Powered Q&A System
-- **Context-Aware Assistant**: Ask questions about the currently displayed 3D model
-- **OpenAI Integration**: Powered by GPT-3.5-turbo for intelligent responses
-- **Collapsible Interface**: Clean, non-intrusive panel design
-- **Real-time Communication**: Instant responses to student inquiries
-
-### 📚 Educational Content
-The platform covers scientific concepts across multiple scales, starting from the largest and zooming into progressively smaller structures:
-
-1. **Observable Universe** - The largest scale we can observe
-2. **Milky Way Galaxy** - Our home galaxy with billions of stars
-3. **Solar System** - Celestial mechanics and planetary relationships
-4. **Earth** - Our planet and its characteristics
-5. **Biological Systems** - Living organisms (Beaver model)
-6. **DNA Helix** - Genetic information storage
-7. **Molecular Structure** - DNA bases and molecular interactions  
-8. **Atomic Level** - Basic building blocks of matter
-
-## 🛠️ Technology Stack
-
-### Frontend
-- **Next.js** - React framework with TypeScript
-- **React Three Fiber** - React renderer for Three.js
-- **@react-three/drei** - Useful helpers for 3D scenes
-- **Three.js** - 3D graphics library
-- **CSS Modules** - Scoped styling
-
-### Backend
-- **Express.js** - Backend API server
-- **OpenAI API** - AI-powered responses
-- **Axios** - HTTP client for API calls
-- **CORS** - Cross-origin resource sharing
-
-### 3D Assets
-- **GLTF/GLB Models** - Optimized 3D model format
-- **HDR Environment Maps** - Realistic lighting and reflections
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
-- OpenAI API key
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Teejay021/nwhacks2025.git
-   cd nwhacks2025
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Setup**
-   Create a `.env` file in the root directory:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
-
-4. **Start the development servers**
-   
-   Terminal 1 - Frontend:
-   ```bash
-   npm run dev
-   ```
-   
-   Terminal 2 - Backend API:
-   ```bash
-   node server.js
-   ```
-
-5. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:3001
-
-## 🎮 How to Use
-
-### Navigation
-- **Scroll Up/Down**: Zoom in/out on current model
-- **Automatic Transitions**: Reach zoom limits to transition between scales
-- **Mouse Controls**: Click and drag to rotate 3D models
-- **Orbit View**: Explore models from all angles
-
-### AI Assistant
-1. Click **"Ask a Question"** button in the bottom-right corner
-2. Type your question about the current 3D model or scientific concept
-3. Click **"Ask"** to get an AI-powered response
-4. Close the panel with the **"X"** button when done
-
-### Educational Journey
-Start from the **Observable Universe** and scroll to zoom in, triggering automatic transitions through:
-Universe → Galaxy → Solar System → Earth → Biology → DNA → Molecule → Atom
-
-## 📁 Project Structure
-
-```
-├── components/           # React components
-│   ├── AIPanel.tsx      # AI Q&A interface
-│   ├── CardPanel.tsx    # Information display panel
-│   ├── Header.tsx       # Navigation header
-│   ├── Model.tsx        # 3D model loader
-│   ├── Scene.tsx        # Main 3D scene controller
-│   └── ThreeCanvas.tsx  # 3D canvas setup
-├── pages/               # Next.js pages
-│   ├── api/            # API routes
-│   ├── index.tsx       # Main application page
-│   └── _app.tsx        # App configuration
-├── public/             # Static assets
-│   └── models/         # 3D model files
-├── styles/             # CSS styling
-├── utils/              # Utility functions
-├── server.js           # Express backend server
-└── package.json        # Dependencies and scripts
+```powershell
+npm ci
+npm run assets:check
+npm run build
+npm start
 ```
 
-## Key Components
+Open http://localhost:3000. Use `npm run dev` while developing. The original Desktop checkout is preserved; the working checkout is `C:/Users/Danial/Documents/ChatGPT/personal website/cosmic-zoom`, branch `codex/cosmic-zoom-release`.
 
-### Scene.tsx
-- Central controller for 3D visualization
-- Handles scroll-based zoom and model transitions
-- Manages lighting, camera, and fog effects
-- Coordinates with CardPanel for content display
+The eight required models are included and credited to the original Cosmic Zoom nwHacks 2025 team. Danial confirmed that the team made them. [Asset recovery and manifest](docs/ASSETS.md) records checksums and original locations, including a recovery command if a local file is lost.
 
-### AIPanel.tsx
-- Collapsible Q&A interface
-- Connects to backend API for AI responses
-- Loading states and error handling
-- Responsive design for different screen sizes
+## Explore
 
-### Model.tsx
-- Dynamic 3D model loader using GLTF format
-- Animation support with scroll synchronization
-- Optimized loading with preloading capabilities
+The journey starts at Atom and proceeds through Molecule → DNA Helix → Beaver → Earth → Solar System → Milky Way → Observable Universe. Choose any scene using its button, or use Smaller/Larger. Focus the 3D view and use left/right arrow keys or scroll to step between scales. Drag with mouse or touch to orbit. Page and assistant scrolling remain independent. Reset view restores camera framing and clears the selected feature.
 
-## Educational Impact
+DNA and Earth each have three numbered feature markers with equivalent HTML buttons. Feature markers are teaching regions, not precise atomic/geographic measurements. Original animation clips can be played or paused where available; animation is off initially and disabled for reduced-motion preferences.
 
-This platform addresses key challenges in STEM education:
+The ruler uses logarithmic physical lengths. The scene buttons use equal spacing for legibility. Model framing is independent of physical size: the ruler does not imply a continuous literal zoom. Each measurement identifies what is being measured, with caveats and sources. The small-molecule width is explicitly a teaching estimate. Scene links such as `/#earth` support reload and browser history. Old `/earth` and `/1`–`/8` routes redirect into the journey; unknown routes return 404.
 
-- **Visual Learning**: Complex scientific concepts made tangible through 3D visualization
-- **Scale Comprehension**: Journey from cosmic to atomic scales helps students grasp relative sizes
-- **Interactive Engagement**: Active exploration rather than passive consumption
-- **Personalized Learning**: AI assistant provides instant answers to student questions
-- **Accessibility**: Web-based platform accessible from any device
+## Optional AI guide
 
-## Future Enhancements
+Copy `.env.example` to `.env.local`, set `OPENAI_API_KEY`, and deliberately enable `AI_ENABLED=true` when ready to use the paid provider. `OPENAI_MODEL` defaults to `gpt-4.1-mini` and is configurable. Set `APP_ORIGIN` to the exact public origin before deployment. Restart the server after changing environment variables.
 
-- **More 3D Models**: Expand the library with additional scientific visualizations
-- **VR Support**: Virtual reality integration for even more immersive experiences
-- **Collaborative Features**: Multi-user exploration and shared learning sessions
-- **Progress Tracking**: Student learning analytics and progress monitoring
-- **Mobile Optimization**: Enhanced mobile experience with touch controls
-- **Offline Mode**: Downloadable content for areas with limited internet
+The single Next.js `/api/ask` route replaces the separate Express service and old mock. The browser sends a question, scene ID and selected feature ID. The server resolves these to curated facts and sources, bounds inputs and output, and rejects unknown scenes or mismatched features. Switching context cancels the request and discards the previous panel state. No credentials are sent to the browser.
 
-## Contributing
+Requests use the [OpenAI Responses API](https://developers.openai.com/api/docs/guides/migrate-to-responses), structured output and `store: false`. Source links come from the registry rather than model-written URLs. Factual grounding still requires evaluation; source filtering does not guarantee accurate answers. [AI evaluation cases and deployment limits](docs/AI-EVALUATION.md).
 
-This project was created for nwHacks 2025. If you'd like to contribute or build upon this work:
+## Checks
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+```powershell
+npm run typecheck
+npm run lint
+npm test
+npm run assets:check
+npm run build
+npm run test:e2e
+```
 
-## License
+Browser tests use the installed Google Chrome in a separate test session, software WebGL, and desktop plus mobile emulation. Install Chrome or change the Playwright channel and install its Chromium browser for other environments. Mobile emulation does not replace physical device testing. Provider tests are mocked and do not make paid calls.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Implementation
 
-## Acknowledgments
+- `lib/scenes.ts`: typed registry, lengths, model framing, sources, prompts and feature IDs.
+- `components/Explorer.tsx`: one navigation state, URL synchronization and responsive UI.
+- `components/Scene.tsx` / `Model.tsx`: active-model loading, persistent canvas, orbiting, optional animation, error recovery and on-demand rendering.
+- `lib/assistant.ts`: validated context, provider boundary, bounded requests and curated citations.
+- `scripts/assets.mjs`: imports and checks the original GLBs.
 
-- **nwHacks 2025** - For providing the platform and inspiration
-- **Three.js Community** - For the amazing 3D graphics capabilities
-- **OpenAI** - For the AI-powered educational assistance
-- **React Three Fiber** - For seamless React-Three.js integration
+Dependencies are pinned, including aligned React 18 types and a compatible Three.js version. Next.js stays on the 15 maintenance line with its [September 2026 security patch](https://nextjs.org/blog/september-2026-security-release). There are no new hosted services.
 
-## Contact
+## Deployment status
 
-For questions about this project or collaboration opportunities, please reach out through the GitHub repository.
+This is a working local release, not a public deployment. It needs a Next.js Node/serverless host because the AI route is server-side. AI defaults off. Before publicly enabling anonymous AI, replace the process-local request limits with a durable shared quota or gateway, establish trusted proxy handling, configure provider spend limits, and run the live evaluation cases. Public hosting destination and costs have not been selected.
 
----
+See [verification notes](docs/VERIFICATION.md) for measured evidence and remaining limits.
 
-**Built with ❤️ for education and exploration**
+## Team attribution and this iteration
+
+Cosmic Zoom is a collaborative nwHacks 2025 project. The original team built the interactive concept, 3D scene experience and initial AI panel; existing Git history preserves contributor attribution. This October 2026 iteration for Danial adds asset recovery tooling, a reproducible build, the typed scene registry and ruler, responsive/keyboard controls, DNA/Earth feature annotations, and the scene-aware API with tests. Do not describe the original team's entire project as a new individual contribution.
+
+The original package declared MIT for application code. No separate license file or per-model licenses were present in the recovered checkout. The included models are credited to the original nwHacks team, with team authorship confirmed by Danial during recovery.

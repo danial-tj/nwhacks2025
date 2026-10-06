@@ -1,0 +1,86 @@
+[
+  {
+    "file": "atom.glb",
+    "bytes": 1592528,
+    "sha256": "8ae9c50c3ebdc1211c3d1bd654eb1caffa5783327ca70af003de9c493395563f",
+    "recoveredFrom": "Downloads/atom.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "beaver.glb",
+    "bytes": 554052,
+    "sha256": "385808ea7c8944a5cfa3f21750acae21b1635ccef6e2a25155d301665350b2e3",
+    "recoveredFrom": "Downloads/beaver.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "DNAHelix.glb",
+    "bytes": 1833920,
+    "sha256": "890307bde37ec6a91686759a013de9f225467c704c4727d89f136e593e70cbae",
+    "recoveredFrom": "Downloads/DNAHelix.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "earthModel.glb",
+    "bytes": 4473812,
+    "sha256": "5839df89453caab399e9df630c2991813e15ab2899d952c0761321353664d4f2",
+    "recoveredFrom": "Downloads/earthModel (1).glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "Milkywaygalaxy.glb",
+    "bytes": 2456176,
+    "sha256": "4588fc5dcf5ef566dcab5b8ee2e86b048c3b3ee3b880735af40b7801526b385c",
+    "recoveredFrom": "Downloads/Milkywaygalaxy.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "moleculeModel.glb",
+    "bytes": 1269964,
+    "sha256": "fc466b606db57125dad31893e32a90f31a003d4aeae5be2bb06f435c335549bd",
+    "recoveredFrom": "Desktop/cosmic/public/models/moleculeModel.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "observableuniverse.glb",
+    "bytes": 308736,
+    "sha256": "5f340500a22e70c7d6b82d7e9d5e49385f55b19b01ca45d94d44459e0227e6c0",
+    "recoveredFrom": "Downloads/observableuniverse (1).glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "solarsystem.glb",
+    "bytes": 4858452,
+    "sha256": "55583028b695ef148204b4bc4c552c36c11cb3464399da3fc65198aa24cd10da",
+    "recoveredFrom": "Downloads/solarsystem.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded."
+  },
+  {
+    "file": "electron.glb",
+    "directory": "source-assets",
+    "bytes": 2056,
+    "sha256": "1f238fc666fceef895f3f8e63f505775faaea1d3721366cd4ee9fd5fd183cf1a",
+    "recoveredFrom": "Downloads/electron (1).glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded.",
+    "notes": "Separate emissive mesh; retained for authoring, not an additional scale scene."
+  },
+  {
+    "file": "earthLight.glb",
+    "directory": "source-assets",
+    "bytes": 132,
+    "sha256": "e47d024c30089d49d6836a129467c800065dcc3b392362c4a5688967c65d1919",
+    "recoveredFrom": "Downloads/earthLight.glb",
+    "credit": "Original Cosmic Zoom nwHacks 2025 team",
+    "provenance": "Team-made, confirmed by Danial on October 5, 2026; no individual author metadata embedded.",
+    "notes": "Empty 132-byte scene export; contains no geometry or lights."
+  }
+]

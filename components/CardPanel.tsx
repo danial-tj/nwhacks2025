@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './CardPanel.module.css'; // Import the CSS Module
+import React from "react";
+import styles from "./CardPanel.module.css"; // Import the CSS Module
 
 interface CardPanelProps {
   title: string;

@@ -11,9 +11,26 @@ logs/
 out/
 dist/
 .cache/
+.baseline/
+.local-ca.pem
+.env.*
+!.env.example
+*.tsbuildinfo
+test-results/
+playwright-report/
 
 # Static assets
 *.glb
+!public/models/atom.glb
+!public/models/beaver.glb
+!public/models/DNAHelix.glb
+!public/models/earthModel.glb
+!public/models/Milkywaygalaxy.glb
+!public/models/moleculeModel.glb
+!public/models/observableuniverse.glb
+!public/models/solarsystem.glb
+!source-assets/electron.glb
+!source-assets/earthLight.glb
 *.gltf
 *.fbx
 *.obj
